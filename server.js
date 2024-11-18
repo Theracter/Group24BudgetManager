@@ -22,12 +22,12 @@ app.use((req, res, next) => {
     next();
 });
 
-app.post('/api/login', async (req, res, next) => {
+app.post('/login', async (req, res, next) => {
     // incoming: login, password
     // outgoing: id, firstName, lastName, error
     var error = '';
     const { login, password } = req.body;
-    const db = client.db('database');
+    const db = client.db('budgetManager');
     const results = await db.collection('Users').find({ Login: login, Password: password }).toArray();
     var id = -1;
     var fn = '';
@@ -41,14 +41,14 @@ app.post('/api/login', async (req, res, next) => {
     res.status(200).json(ret);
 });
 
-app.post('/api/signUp', async (req, res, next) => {
+app.post('/signUp', async (req, res, next) => {
     // incoming: email, password, firstname, lastname
     //outgoing: error
     const {login, password, firstName, lastName} = req.body;
     const newUser = { Login : login, Password : password, FirstName : firstName, LastName : lastName};
     var error = '';
     try {
-        const db = client.db('database');
+        const db = client.db('budgetManager');
         const result = db.collection('Users').insertOne(newUser);
     } catch (e) {
         error = e.toString();
@@ -57,14 +57,14 @@ app.post('/api/signUp', async (req, res, next) => {
     res.status(200).json(ret);
 });
 
-app.post('/api/addincome', async (req, res, next) => {
+app.post('/addincome', async (req, res, next) => {
     // incoming: userId, Category, Amount, Name, Month, Notes 
     // outgoing: error
     const { userId, category, amount, name, month, notes } = req.body;
     const newIncome = { UserId: userId, Category : category, Amount : amount, Name : name, Month : month, Notes : notes};
     var error = '';
     try {
-        const db = client.db('database');
+        const db = client.db('budgetManager');
         const result = db.collection('Income').insertOne(newIncome);
     }
     catch (e) {
@@ -74,10 +74,10 @@ app.post('/api/addincome', async (req, res, next) => {
     res.status(200).json(ret);
 });
 
-app.post('api/printTransactions', async (req, res, next) => {
+app.post('/printTransactions', async (req, res, next) => {
     //incoming: nothing
     //outgoing: a list of all of the monthy transactions sorted by date modified.
-    const db = client.db('database');
+    const db = client.db('budgetManager');
     
     const sortedDocument = db.collection('Income').find().sort({ month : -1}).toArray();
     var totalCount = db.income.countDocuments() + db.expense.countDocuments();
@@ -89,7 +89,7 @@ app.post('api/printTransactions', async (req, res, next) => {
 
 });
 
-app.post('api/editIncome', async (req, res, next) => {
+app.post('/editIncome', async (req, res, next) => {
     //incoming: userId, Category, Amount, Name, Month, Notes
     //outgoing: error
     const {userId, category, amount, name, month, notes} = req.body;
