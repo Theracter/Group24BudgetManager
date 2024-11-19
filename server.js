@@ -4,8 +4,17 @@ const cors = require('cors');
 const app = express();
 const MongoClient = require('mongodb').MongoClient;
 const url = 'mongodb+srv://team24:lovelygerber24@team24.b5ri7.mongodb.net/?retryWrites=true&w=majority&appName=Team24';
-const client = new MongoClient(url);
-client.connect();
+const client = new MongoClient(url, { useNewUrlParser: true, useUnifiedTopology: true });
+
+client.connect(err => {
+    if (err) {
+        console.error('Failed to connect to MongoDB:', err);
+        process.exit(1);
+    } else {
+        console.log('Connected to MongoDB successfully');
+    }
+});
+
 
 
 app.use(cors());
