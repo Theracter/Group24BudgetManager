@@ -39,7 +39,7 @@ app.post('/api/login', async (req, res, next) => {
     var ln = '';
 	console.log(results);
     if (results.length > 0) {
-        id = results[0].UserId;
+        id = results[0].userId;
         fn = results[0].FirstName;
         ln = results[0].LastName;
     }
@@ -105,8 +105,8 @@ app.post('/api/search', async (req, res, next) =>  {
     res.status(200).json(ret);
 
 app.post('/api/addExpense', async (req, res, next) => {
-    const { UserId, category, amount, name, month, notes } = req.body;
-    const newExpense = { UserId: UserId, Category : category, Amount : amount, Name : name, Month : month, Notes : notes};
+    const { userId, category, amount, name, month, notes } = req.body;
+    const newExpense = { userId: userId, Category : category, Amount : amount, Name : name, Month : month, Notes : notes};
     var error = '';
     console.log(newExpense);
     try {
@@ -141,13 +141,13 @@ app.post('/printTransactions', async (req, res, next) => {
 app.post('/api/createBudget', async (req, res, next) => {
     // incoming: userId, Category, Amount, Name, Month, Notes 
     // outgoing: error
-    const { UserId, category, amount, name, month, notes } = req.body;
+    const { userId, category, amount, name, month, notes } = req.body;
 
     const months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
     const d = new Date();
     let monthName = month[d.getMonth()]; 
 
-    const newIncome = { UserId: UserId, Category : "budget", Amount : amount, Name : "initialBudget", Month : monthName, Notes : notes};
+    const newIncome = { userId: userId, Category : "budget", Amount : amount, Name : "initialBudget", Month : monthName, Notes : notes};
     var error = '';
 	console.log(newIncome);
     try {
