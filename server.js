@@ -93,11 +93,12 @@ app.get('/api/search', async (req, res, next) =>  {
         if(option == "Expense") {
             //do expense search
             const results = await db.collection('Expenses').find({month: month, userId : userId}).toArray();
+            console.log(results);
         } else {
             //do income search
             const results = await db.collection('Income').find({month: month, userId : userId}).toArray();
+            console.log(results);
         }
-        console.log(results);
     } catch (e) {
         error = e.toString();
     }
