@@ -92,11 +92,11 @@ app.get('/api/search', async (req, res, next) =>  {
         const db = client.db("BudgetManager");
         if(option === "Expense") {
             //do expense search
-            const results = await db.collection('Expenses').find({month: month, userId : userId}).toArray();
+            const results = await db.collection('Expenses').find({Month: month, userId : userId}).toArray();
             console.log(results);
         } else {
             //do income search
-            const results = await db.collection('Income').find({month: month, userId : userId}).toArray();
+            const results = await db.collection('Income').find({Month: month, userId : userId}).toArray();
             console.log(results);
         }
     } catch (e) {
