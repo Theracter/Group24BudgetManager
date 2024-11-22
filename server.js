@@ -90,7 +90,7 @@ app.get('/api/search', async (req, res, next) =>  {
     var error = '';
     try {
         const db = client.db("BudgetManager");
-        if(option == "Expense") {
+        if(option.equals("Expense")) {
             //do expense search
             const results = await db.collection('Expenses').find({month: month, userId : userId}).toArray();
             console.log(results);
