@@ -230,7 +230,7 @@ app.get('/api/pieChartData', async (req, res, next) => {
         ]).toArray();
 
         // Combine the data into a single array 
-        const combinedData = [
+        var combinedData = [
             ...incomeData.map(item => ({ category: item._id, type: 'Income', totalAmount: item.totalAmount })),
             ...expenseData.map(item => ({ category: item._id, type: 'Expense', totalAmount: item.totalAmount }))
         ];
@@ -240,7 +240,7 @@ app.get('/api/pieChartData', async (req, res, next) => {
     }
 
     var ret = combinedData;
-    res.status(200).json(ret);
+    res.status(200).json(combinedData);
 
 });
 
