@@ -147,7 +147,7 @@ app.post('/api/createBudget', async (req, res, next) => {
 
     const months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
     const d = new Date();
-    let monthName = month[d.getMonth()]; 
+    let monthName = months[d.getMonth()]; 
 
     const newIncome = { userId: userId, Category : "budget", Amount : amount, Name : "initialBudget", Month : monthName, Notes : notes};
     var error = '';
@@ -166,14 +166,41 @@ app.post('/api/createBudget', async (req, res, next) => {
 app.patch('/editIncome', async (req, res, next) => {
     //incoming: userId, Category, Amount, Name, Month, Notes
     //outgoing: error
-    const {userId, category, amount, name, month, notes} = req.body;
+    const { userId, category, amount, name, month, notes } = req.body;
+
+    var myquery = { Name: name, UserId: userId};
+    var newvalues = { $set: {Category: category, Amount: amount, Notes: notes } };
+    db.collection("Income").updateOne(myquery, newvalues, function(err, res) {
+        if (err) throw err;
+        console.log("1 document updated");
+    });
+
+    res.status(200).json(ret);
+
+});
+
+app.patch('/editExpense', async (req, res, next) => {
+    //incoming: userId, Category, Amount, Name, Month, Notes
+    //outgoing: error
+    const { userId, category, amount, name, month, notes } = req.body;
+
+    var myquery = { Name: name, UserId: userId};
+    var newvalues = { $set: {Category: category, Amount: amount, Notes: notes } };
+    db.collection("Expenses").updateOne(myquery, newvalues, function(err, res) {
+        if (err) throw err;
+        console.log("1 document updated");
+    });
+
+    res.status(200).json(ret);
+
 });
 
 app.patch('/api/editBudget', async (req, res, next) => {
     // incoming: userId, Category, Amount, Name, Month, Notes 
     // outgoing: error
-
-    var myquery = { Name: "initialBudget", userId: userId};
+    const { userId, category, amount, name, month, notes } = req.body;
+    var myquery = { Name: "initialBudget", UserId: userId, Month: month};
+  
     var newvalues = { $set: {Category: category, Amount: amount, Notes: notes } };
     db.collection("Income").updateOne(myquery, newvalues, function(err, res) {
         if (err) throw err;
