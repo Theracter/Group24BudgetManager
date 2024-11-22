@@ -220,13 +220,13 @@ app.get('/api/pieChartData', async (req, res, next) => {
         // Aggregating income data for the given user and month
         const incomeData = await db.collection('Income').aggregate([
             { $match: { userId: userId, month: month } }, // Filter by userId and month
-            { $group: { _id: "$category", totalAmount: { $sum: "$amount" } } } // Group by category and sum amounts
+            { $group: { Category: "$category", totalAmount: { $sum: "$amount" } } } // Group by category and sum amounts
         ]).toArray();
 
         // Aggregating expense data for the given user and month
         const expenseData = await db.collection('Expenses').aggregate([
             { $match: { userId: userId, month: month } }, // Filter by userId and month
-            { $group: { _id: "$category", totalAmount: { $sum: "$amount" } } } // Group by category and sum amounts
+            { $group: { Category: "$category", totalAmount: { $sum: "$amount" } } } // Group by category and sum amounts
         ]).toArray();
 
         // Combine the data into a single array 
