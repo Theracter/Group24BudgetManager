@@ -63,12 +63,12 @@ app.post('/api/signUp', async (req, res, next) => {
     res.status(200).json(ret);
 });
 
-app.post('/api/addincome', async (req, res, next) => {
+app.post('/api/addIncome', async (req, res, next) => {
     // incoming: userId, Category, Amount, Name, Month, Notes 
     // outgoing: error
-    const { UserId, category, amount, name, month, notes } = req.body;
-    
-    const newIncome = { UserId: UserId, Category : category, Amount : amount, Name : name, Month : month, Notes : notes};
+    const { userId, category, amount, name, month, notes } = req.body;
+    const newIncome = { userId: userId, category : category, amount : amount, name : name, month : month, notes : notes};
+
     var error = '';
 	console.log(newIncome);
     try {
@@ -81,6 +81,28 @@ app.post('/api/addincome', async (req, res, next) => {
     var ret = { error: error };
     res.status(200).json(ret);
 });
+
+app.post('/api/search', async (req, res, next) =>  {
+    //incoming: optionForSearch month
+    //outgoing: list of incomes/expenses
+    const {userId, option, month} = req.body;
+    const search = {userId : userId, option : option, month : month};
+    var error = '';
+    try {
+        const db = client.db("BudgetManager");
+        if(option == "Expense") {
+            //do expense search
+            const results = await db.collection('Expenses').find({month: month, userId : userId}).toArray();
+        } else {
+            //do income search
+            const results = await db.collection('Income').find({month: month, userId : userId}).toArray();
+        }
+        console.log(results);
+    } catch (e) {
+        error = e.toString();
+    }
+    var ret = {error: error};
+    res.status(200).json(ret);
 
 app.post('/api/addExpense', async (req, res, next) => {
     const { UserId, category, amount, name, month, notes } = req.body;
