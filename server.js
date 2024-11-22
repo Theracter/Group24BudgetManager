@@ -212,7 +212,7 @@ app.patch('/api/editBudget', async (req, res, next) => {
 
 app.get('/api/pieChartData', async (req, res, next) => {
 
-    const {userId, month } = req.query; // Query for userId and month
+    const {userId, month } = req.body; // Query for userId and month
     const db = client.db('BudgetManager');
 
     try {
