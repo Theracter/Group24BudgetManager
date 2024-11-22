@@ -67,6 +67,7 @@ app.post('/api/addincome', async (req, res, next) => {
     // incoming: userId, Category, Amount, Name, Month, Notes 
     // outgoing: error
     const { UserId, category, amount, name, month, notes } = req.body;
+    
     const newIncome = { UserId: UserId, Category : category, Amount : amount, Name : name, Month : month, Notes : notes};
     var error = '';
 	console.log(newIncome);
@@ -113,6 +114,29 @@ app.post('/printTransactions', async (req, res, next) => {
         totalCount--;
     }
 
+});
+
+app.post('/api/createBudget', async (req, res, next) => {
+    // incoming: userId, Category, Amount, Name, Month, Notes 
+    // outgoing: error
+    const { UserId, category, amount, name, month, notes } = req.body;
+
+    const months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+    const d = new Date();
+    let monthName = month[d.getMonth()]; 
+
+    const newIncome = { UserId: UserId, Category : "budget", Amount : amount, Name : "initialBudget", Month : monthName, Notes : notes};
+    var error = '';
+	console.log(newIncome);
+    try {
+        const db = client.db('BudgetManager');
+        const result = db.collection('Income').insertOne(newIncome);
+    }
+    catch (e) {
+        error = e.toString();
+    }
+    var ret = { error: error };
+    res.status(200).json(ret);
 });
 
 app.post('/editIncome', async (req, res, next) => {
