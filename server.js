@@ -103,6 +103,7 @@ app.get('/api/search', async (req, res, next) =>  {
     }
     var ret = {error: error};
     res.status(200).json(ret);
+});
 
 app.post('/api/addExpense', async (req, res, next) => {
     const { userId, category, amount, name, month, notes } = req.body;
