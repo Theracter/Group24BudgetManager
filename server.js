@@ -86,24 +86,24 @@ app.get('/api/search', async (req, res, next) =>  {
     //incoming: optionForSearch month
     //outgoing: list of incomes/expenses
     const {userId, option, month} = req.body;
-    const search = {userId : userId, option : option, month : month};
+    var results = null;
     var error = '';
     try {
         const db = client.db("BudgetManager");
         if(option === "Expense") {
             //do expense search
-            const results = await db.collection('Expenses').find({Month: month, userId : userId}).toArray();
+            
+            results = await db.collection('Expenses').find({Month: month, userId : userId}).toArray();
             console.log(results);
         } else {
             //do income search
-            const results = await db.collection('Income').find({Month: month, userId : userId}).toArray();
+            results = await db.collection('Income').find({Month: month, userId : userId}).toArray();
             console.log(results);
         }
     } catch (e) {
         error = e.toString();
     }
-    var ret = {error: error};
-    res.status(200).json(ret);
+    res.status(200).json(results);
 });
 
 app.post('/api/addExpense', async (req, res, next) => {
