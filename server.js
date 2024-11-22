@@ -82,7 +82,7 @@ app.post('/api/addIncome', async (req, res, next) => {
     res.status(200).json(ret);
 });
 
-app.post('/api/search', async (req, res, next) =>  {
+app.get('/api/search', async (req, res, next) =>  {
     //incoming: optionForSearch month
     //outgoing: list of incomes/expenses
     const {userId, option, month} = req.body;
@@ -161,11 +161,24 @@ app.post('/api/createBudget', async (req, res, next) => {
     res.status(200).json(ret);
 });
 
-app.post('/editIncome', async (req, res, next) => {
+app.patch('/editIncome', async (req, res, next) => {
     //incoming: userId, Category, Amount, Name, Month, Notes
     //outgoing: error
     const {userId, category, amount, name, month, notes} = req.body;
-    
+});
+
+app.patch('/api/editBudget', async (req, res, next) => {
+    // incoming: userId, Category, Amount, Name, Month, Notes 
+    // outgoing: error
+
+    var myquery = { Name: "initialBudget", UserId: UserId};
+    var newvalues = { $set: {Category: category, Amount: amount, Notes: notes } };
+    db.collection("Income").updateOne(myquery, newvalues, function(err, res) {
+        if (err) throw err;
+        console.log("1 document updated");
+    });
+
+    res.status(200).json(ret);
 });
 
 app.listen(5000);
