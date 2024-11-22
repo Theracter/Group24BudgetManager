@@ -173,7 +173,7 @@ app.patch('/api/editBudget', async (req, res, next) => {
     // incoming: userId, Category, Amount, Name, Month, Notes 
     // outgoing: error
 
-    var myquery = { Name: "initialBudget", UserId: UserId};
+    var myquery = { Name: "initialBudget", userId: userId};
     var newvalues = { $set: {Category: category, Amount: amount, Notes: notes } };
     db.collection("Income").updateOne(myquery, newvalues, function(err, res) {
         if (err) throw err;
