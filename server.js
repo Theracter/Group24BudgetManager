@@ -82,7 +82,7 @@ app.post('/api/addIncome', async (req, res, next) => {
     res.status(200).json(ret);
 });
 
-app.post('/api/search', async (req, res, next) =>  {
+app.get('/api/search', async (req, res, next) =>  {
     //incoming: optionForSearch month
     //outgoing: list of incomes/expenses
     const {userId, option, month} = req.body;
