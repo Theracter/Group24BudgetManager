@@ -6,19 +6,13 @@ const MongoClient = require('mongodb').MongoClient;
 const url = 'mongodb+srv://team24:lovelygerber24@team24.b5ri7.mongodb.net/?retryWrites=true&w=majority&appName=Team24';
 const client = new MongoClient(url);
 
-client.connect(err => {
-    if (err) {
-        console.error('Failed to connect to MongoDB:', err);
-        process.exit(1);
-    } else {
-        console.log('Connected to MongoDB successfully');
-    }
-});
+client.connect();
 
 
 
 app.use(cors());
 app.use(bodyParser.json());
+app.use(express.json());
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader(
@@ -31,16 +25,19 @@ app.use((req, res, next) => {
     next();
 });
 
-app.post('/login', async (req, res, next) => {
+
+
+app.post('/api/login', async (req, res, next) => {
     // incoming: login, password
     // outgoing: id, firstName, lastName, error
-    var error = '';
+	var error = '';
     const { login, password } = req.body;
-    const db = client.db('budgetManager');
-    const results = await db.collection('Users').find({ Login: login, Password: password }).toArray();
+    const db = client.db('BudgetManager');
+    const results = await db.collection('Users').find({ login: login, password: password }).toArray();
     var id = -1;
     var fn = '';
     var ln = '';
+	console.log(results);
     if (results.length > 0) {
         id = results[0].UserId;
         fn = results[0].FirstName;
@@ -50,14 +47,14 @@ app.post('/login', async (req, res, next) => {
     res.status(200).json(ret);
 });
 
-app.post('/signUp', async (req, res, next) => {
+app.post('/api/signUp', async (req, res, next) => {
     // incoming: email, password, firstname, lastname
     //outgoing: error
     const {login, password, firstName, lastName} = req.body;
-    const newUser = { Login : login, Password : password, FirstName : firstName, LastName : lastName};
+    const newUser = { login : login, password : password, firstName : firstName, lastName : lastName };
     var error = '';
     try {
-        const db = client.db('budgetManager');
+        const db = client.db('BudgetManager');
         const result = db.collection('Users').insertOne(newUser);
     } catch (e) {
         error = e.toString();
@@ -66,14 +63,15 @@ app.post('/signUp', async (req, res, next) => {
     res.status(200).json(ret);
 });
 
-app.post('/addincome', async (req, res, next) => {
+app.post('/api/addincome', async (req, res, next) => {
     // incoming: userId, Category, Amount, Name, Month, Notes 
     // outgoing: error
-    const { userId, category, amount, name, month, notes } = req.body;
-    const newIncome = { UserId: userId, Category : category, Amount : amount, Name : name, Month : month, Notes : notes};
+    const { UserId, category, amount, name, month, notes } = req.body;
+    const newIncome = { UserId: UserId, Category : category, Amount : amount, Name : name, Month : month, Notes : notes};
     var error = '';
+	console.log(newIncome);
     try {
-        const db = client.db('budgetManager');
+        const db = client.db('BudgetManager');
         const result = db.collection('Income').insertOne(newIncome);
     }
     catch (e) {
@@ -105,4 +103,4 @@ app.post('/editIncome', async (req, res, next) => {
     
 });
 
-app.listen(5000); // start Node + Express server on port 5000
+app.listen(5000);
