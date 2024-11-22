@@ -81,6 +81,25 @@ app.post('/api/addincome', async (req, res, next) => {
     res.status(200).json(ret);
 });
 
+app.post('/api/addExpense', async (req, res, next) => {
+    const { UserId, category, amount, name, month, notes } = req.body;
+    const newExpense = { UserId: UserId, Category : category, Amount : amount, Name : name, Month : month, Notes : notes};
+    var error = '';
+    console.log(newExpense);
+    try {
+        const db = client.db('BudgetManager');
+        const result = db.collection('Expenses').insertOne(newExpense);
+    }
+    catch (e) {
+        error = e.toString();
+    }
+
+    var ret = { error: error };
+    res.status(200).json(ret);
+    // incoming: userId, Category, Amount, Name, Month, Notes 
+    // outgoing: error
+});
+
 app.post('/printTransactions', async (req, res, next) => {
     //incoming: nothing
     //outgoing: a list of all of the monthy transactions sorted by date modified.
