@@ -93,11 +93,12 @@ app.get('/api/search', async (req, res, next) =>  {
         if(option == "Expense") {
             //do expense search
             const results = await db.collection('Expenses').find({month: month, userId : userId}).toArray();
+            console.log(results);
         } else {
             //do income search
             const results = await db.collection('Income').find({month: month, userId : userId}).toArray();
+            console.log(results);
         }
-        console.log(results);
     } catch (e) {
         error = e.toString();
     }
@@ -199,6 +200,7 @@ app.patch('/api/editBudget', async (req, res, next) => {
     // outgoing: error
     const { userId, category, amount, name, month, notes } = req.body;
     var myquery = { Name: "initialBudget", UserId: userId, Month: month};
+  
     var newvalues = { $set: {Category: category, Amount: amount, Notes: notes } };
     db.collection("Income").updateOne(myquery, newvalues, function(err, res) {
         if (err) throw err;
