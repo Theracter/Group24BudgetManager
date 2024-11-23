@@ -212,21 +212,21 @@ app.patch('/api/editBudget', async (req, res, next) => {
 
 app.get('/api/pieChartData', async (req, res, next) => {
 
-    const {userId, month } = req.query; // Query for userId and month
+    const {userId, month } = req.body; // Query for userId and month
     const db = client.db('BudgetManager');
 
     try {
 
         // Aggregating income data for the given user and month
         const incomeData = await db.collection('Income').aggregate([
-            { $match: { userId: userId, month: month } }, // Filter by userId and month
-            { $group: { Category: "$category", totalAmount: { $sum: "$amount" } } } // Group by category and sum amounts
+            { $match: { userId: userId, Month: month } }, // Filter by userId and month
+            { $group: { _id: "$Category", totalAmount: { $sum: "$Amount" } } } // Group by category and sum amounts
         ]).toArray();
 
         // Aggregating expense data for the given user and month
         const expenseData = await db.collection('Expenses').aggregate([
-            { $match: { userId: userId, month: month } }, // Filter by userId and month
-            { $group: { Category: "$category", totalAmount: { $sum: "$amount" } } } // Group by category and sum amounts
+            { $match: { userId: userId, Month: month } }, // Filter by userId and month
+            { $group: { _id: "$Category", totalAmount: { $sum: "$Amount" } } } // Group by category and sum amounts
         ]).toArray();
 
         // Combine the data into a single array 
