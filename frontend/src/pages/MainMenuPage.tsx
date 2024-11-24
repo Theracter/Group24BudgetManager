@@ -1,12 +1,20 @@
-import '../App.css';
-import MainMenuTitle from '../components/MainMenuTitle'
-import Logout from '../components/Logout.tsx'
+import './MainMenu.css'
+import Sidebar from '../components/Sidebar.tsx'
+import HistoryTable from '../components/HistoryTable.tsx';
+import Stats from '../components/Stats.tsx';
+import Input from '../components/InputArea.tsx';
+
+
+
 
 export default function MainMenuPage() {
-    return (
-      <div>
-        <MainMenuTitle />
-        <Logout />
-      </div>
-    );
-  }
+  return (
+    <>
+      <Sidebar />
+      <Stats/>
+      <Input/> 
+      <HistoryTable /> 
+      <br/>
+    </>
+  );
+}

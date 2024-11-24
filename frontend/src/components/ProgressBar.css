@@ -1,0 +1,32 @@
+/* Default progress bar background */
+progress {
+    margin-left: 20px;
+    width: 80%;
+    height: 20px;
+    border: none; /* Optional: Remove border */
+    border-radius: 10px; /* Rounded corners */
+    overflow: hidden; /* Clips the child elements to the border */
+    background-color: #e0e0e0; /* Light grey for the background */
+  }
+  
+  /* The portion of the progress bar that shows the progress value */
+  progress::-webkit-progress-value {
+    background-color: #e21616; /* Green for progress */
+    transition: width 0.3s ease; /* Smooth transition */
+  }
+  
+  progress::-moz-progress-bar {
+    background-color: #4caf50; /* Green for progress */
+    transition: width 0.3s ease; /* Smooth transition */
+  }
+  
+  progress::-ms-fill {
+    background-color: #4caf50; /* Green for progress */
+    transition: width 0.3s ease; /* Smooth transition */
+  }
+  
+  /* Optional: Progress bar track (background) */
+  progress::-webkit-progress-bar {
+    background-color: #e0e0e0; /* Light grey */
+  }
+  

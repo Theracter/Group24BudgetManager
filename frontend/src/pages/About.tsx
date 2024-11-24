@@ -1,5 +1,10 @@
 import '../App.css';
-
+import Navbar from '../components/Navbar';
 export default function About() {
-  return <h1 className='about'>ABOUT THE WEBSITE</h1>;
+  return (
+    <>
+      <Navbar />
+      <h1 className='about'>ABOUT THE WEBSITE</h1>
+    </>
+  );
 }
