@@ -1,0 +1,52 @@
+#expenseName{
+    margin-top:20px;
+    margin-left:1%;
+    padding-left: 5px;
+    border-radius:10px;
+    width: 98%;   
+}
+
+#amount{
+    margin-top:20px;
+    margin-left:1%;
+    padding-left: 5px;
+    border-radius:10px;
+    width: 98%;  
+}
+
+.category{
+    margin-top:20px;
+    margin-left:1%;
+    border-radius:10px;
+    width: 98%;  
+}
+
+textarea {
+    margin-top:20px;
+    margin-left:1%;
+    margin-bottom: 0px;
+    border-radius: 10px; /* Rounded corners */
+    padding-left: 5px; /* Add padding to avoid clipping */
+    border: 1px solid #ccc; /* Border style */
+    font-size: 14px; /* Font size */
+    width: 98%;  /* Optional: make the textarea fill the container */
+    box-sizing: border-box; /* Ensures padding and border are included in the element's total width/height */
+}
+  
+textarea::placeholder {
+    color: gray;
+    font-style: italic;
+    font-size: 14px;
+}
+
+input::placeholder {
+    padding-left:2px;
+}
+
+#submit{
+    margin-left: 20px;
+    margin-top: 1%;
+    margin-bottom: 20px;
+    Background-color: black;
+    color: white;
+}

@@ -1,0 +1,34 @@
+/* Apply to html and body to make sure they take up the full viewport */
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+}
+
+/* Full width for the root component */
+#root {
+    width: 100%;
+    height: 100%;
+}
+
+
+
+.hero-container {
+    background: url('../assets/img-home.jpg') center center/cover no-repeat;
+    min-height: 91vh;
+    width: 100vw; /* Ensures it spans the full width */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0.2); /* Optional overlay */
+    margin: 0; 
+}
+
+.btns{
+    margin-top: 10px;
+
+}
+

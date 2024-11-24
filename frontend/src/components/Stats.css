@@ -1,0 +1,37 @@
+.pie_chart_container {
+    display: inline-block;
+    white-space: normal;
+    width: fit-content;
+    height: fit-content;
+}
+
+
+
+.info1 {
+    display: inline-block;
+    white-space: normal;
+    width: 46%;
+    height: fit-content;
+    margin-top: 1%;
+    margin-left: 25px;
+}
+
+.progress {
+    background-color: #fff;
+    color: #000;
+    width: 100%;
+    height: fit-content;
+}
+
+.items {
+    background-color: #fff;
+    color: #000;
+    margin-top: 2%;
+    width: 100%;
+    height: 385px;
+}
+
+.infoBreakdown {
+    white-space: nowrap;
+    margin-bottom: 25px;
+}
