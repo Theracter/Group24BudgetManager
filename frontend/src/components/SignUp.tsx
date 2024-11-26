@@ -23,6 +23,40 @@ function SignUp() {
         setPassword(e.target.value);
     }
 
+    async function doSignUp(event:any) : Promise<void>
+    {
+	event.preventDefault();
+
+	var obj = {login:username, password:password, firstName: firstName, lastName: lastName};
+	var js = JSON.stringify(obj);
+	console.log(js);
+	try
+	{
+	const response = await fetch('https://budgetmanager.xyz/api/signUp',
+	{method:'POST',body:js,headers:{'Content-Type':'application/json'}});
+	console.log(response);
+	var res = JSON.parse(await response.text());
+	console.log(res);
+	if( res.id <= 0 )
+	{
+		setMessage('Error making a new account');
+	}
+	else
+	{
+		var user = {firstName:res.firstName,lastName:res.lastName,id:res.id}
+		localStorage.setItem('user_data', JSON.stringify(user));
+		
+		window.location.href = '/main-menu';
+	
+	}
+}
+	catch(error:any)
+	{
+	alert(error.toString());
+	return;
+	}
+};
+
     return (
         <div id="signUpDiv">
             <input type="text" id="signUpFirstName" placeholder="First Name"
