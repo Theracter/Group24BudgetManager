@@ -45,7 +45,7 @@ function Login() {
 	alert(error.toString());
 	return;
 	}
-	console.log(response);
+	
 };
 
     return (

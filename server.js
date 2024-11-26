@@ -66,8 +66,12 @@ app.post('/api/signUp', async (req, res, next) => {
 app.post('/api/addIncome', async (req, res, next) => {
     // incoming: userId, Category, Amount, Name, Month, Notes 
     // outgoing: error
+    const months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+    const d = new Date();
+    let monthName = months[d.getMonth()]; 
+
     const { userId, category, amount, name, month, notes } = req.body;
-    const newIncome = { userId: userId, category : category, amount : amount, name : name, month : month, notes : notes};
+    const newIncome = { userId: userId, category : category, amount : amount, name : name, month : monthName, notes : notes};
 
     var error = '';
 	console.log(newIncome);
@@ -107,8 +111,12 @@ app.get('/api/search', async (req, res, next) =>  {
 });
 
 app.post('/api/addExpense', async (req, res, next) => {
+    const months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+    const d = new Date();
+    let monthName = months[d.getMonth()]; 
+
     const { userId, category, amount, name, month, notes } = req.body;
-    const newExpense = { userId: userId, Category : category, Amount : amount, Name : name, Month : month, Notes : notes};
+    const newExpense = { userId: userId, Category : category, Amount : amount, Name : name, Month : monthName, Notes : notes};
     var error = '';
     console.log(newExpense);
     try {
@@ -219,14 +227,14 @@ app.get('/api/pieChartData', async (req, res, next) => {
 
         // Aggregating income data for the given user and month
         const incomeData = await db.collection('Income').aggregate([
-            { $match: { userId: userId, month: month } }, // Filter by userId and month
-            { $group: { Category: "$category", totalAmount: { $sum: "$amount" } } } // Group by category and sum amounts
+            { $match: { userId: userId, Month: month } }, // Filter by userId and month
+            { $group: { _id: "$Category", totalAmount: { $sum: "$Amount" } } } // Group by category and sum amounts
         ]).toArray();
 
         // Aggregating expense data for the given user and month
         const expenseData = await db.collection('Expenses').aggregate([
-            { $match: { userId: userId, month: month } }, // Filter by userId and month
-            { $group: { Category: "$category", totalAmount: { $sum: "$amount" } } } // Group by category and sum amounts
+            { $match: { userId: userId, Month: month } }, // Filter by userId and month
+            { $group: { _id: "$Category", totalAmount: { $sum: "$Amount" } } } // Group by category and sum amounts
         ]).toArray();
 
         // Combine the data into a single array 
