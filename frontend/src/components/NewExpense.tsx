@@ -56,7 +56,7 @@ export default function NewExpense() {
 
         const user = localStorage.getItem("user_data");
         if(user.id == null) {
-            console.log("piss");
+            console.log("problem");
         }
         var obj = {userId : user.id, category: dropDownValue, amount : currencyValue, name: nameValue, notes : notes};
         var js = JSON.stringify(obj);
