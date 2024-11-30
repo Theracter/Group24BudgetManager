@@ -1,55 +1,53 @@
 import CurrencyInput from 'react-currency-input-field';
-import TextArea from './Textarea'
+import TextArea from './Textarea';
 import './NewExpense.css';
-import { useState } from 'react';
-
-
-const [dropDownValue, setDropDownValue] = useState(' ');
-const [currencyValue, setCurrencyValue] = useState(' ');
-const [nameValue, setNameValue] = useState(' ');
-const [notes, setNotes] = useState(' ');
-
-
-const options = [
-    {
-        label: "Food",
-        value: "Food",
-    },
-    {
-        label: "Gas",
-        value: "Gas",
-    },
-    {
-        label: "Grocery",
-        value: "Grocery",
-    },
-    {
-        label: "Personal",
-        value: "Personal",
-    },
-    {
-        label: "Other",
-        value: "Other",
-    },
-];
-
-const handleNameValue = (value: any) => {
-    setNameValue(value);
-}
-
-const handleSelect = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setDropDownValue(event.target.value); // Update state with the selected value
-  };
-
-  const handleValueChange = (value: any) => {
-    setCurrencyValue(value); 
-    // Do something with the value, like storing it in state or sending it to an API
-  };
-  const handleNotesChange = (value: any) => {
-    setNotes(value);
-  }
+import React, { useState } from 'react';
 
 export default function NewExpense() {
+
+    const options = [
+        {
+            label: "Food",
+            value: "Food",
+        },
+        {
+            label: "Gas",
+            value: "Gas",
+        },
+        {
+            label: "Grocery",
+            value: "Grocery",
+        },
+        {
+            label: "Personal",
+            value: "Personal",
+        },
+        {
+            label: "Other",
+            value: "Other",
+        },
+    ];
+    
+    const handleNameValue = (value: any) => {
+        setNameValue(value);
+    }
+    
+    const handleSelect = (event: React.ChangeEvent<HTMLSelectElement>) => {
+        setDropDownValue(event.target.value); // Update state with the selected value
+      };
+    
+      const handleValueChange = (value: any) => {
+        setCurrencyValue(value); 
+        // Do something with the value, like storing it in state or sending it to an API
+      };
+      const handleNotesChange = (value: any) => {
+        setNotes(value);
+      }
+
+    const [dropDownValue, setDropDownValue] = useState(' ');
+    const [currencyValue, setCurrencyValue] = useState(' ');
+    const [nameValue, setNameValue] = useState(' ');
+    const [notes, setNotes] = useState(' ');
 
     async function addExpense(event:any) : Promise<void> {
         event.preventDefault;
