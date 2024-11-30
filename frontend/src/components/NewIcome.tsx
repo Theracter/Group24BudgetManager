@@ -56,7 +56,7 @@ export default function NewIncome() {
 
         const user = localStorage.getItem("user_data");
         if(user.id == null) {
-            console.log("piss2");
+            console.log("incomeProblem");
         }
         var obj = {userId : user.id, category: dropDownValue, amount : currencyValue, name: nameValue, notes : notes};
         var js = JSON.stringify(obj);
