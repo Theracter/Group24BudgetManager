@@ -1,5 +1,6 @@
 import DataTable from "react-data-table-component";
 import './HistoryTable.css'
+import React from 'react';
 
 function HistoryTable() {
     const [userId, setUserId] = React.useState('');
