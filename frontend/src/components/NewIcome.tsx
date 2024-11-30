@@ -4,10 +4,12 @@ import './NewExpense.css';
 import { useState } from 'react';
 
 
-const [dropDownValue, setDropDownValue] = useState(' ');
-const [currencyValue, setCurrencyValue] = useState(' ');
-const [nameValue, setNameValue] = useState(' ');
-const [notes, setNotes] = useState(' ');
+export default function NewIncome() {
+
+    const [dropDownValue, setDropDownValue] = useState(' ');
+    const [currencyValue, setCurrencyValue] = useState(' ');
+    const [nameValue, setNameValue] = useState(' ');
+    const [notes, setNotes] = useState(' ');
 
 
 const options = [
@@ -49,7 +51,6 @@ const handleSelect = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setNotes(value);
   }
 
-export default function NewIncome() {
 
     async function addIncome(event:any) : Promise<void> {
         event.preventDefault;
