@@ -48,17 +48,21 @@ export default function NewExpense() {
     const [currencyValue, setCurrencyValue] = useState(' ');
     const [nameValue, setNameValue] = useState(' ');
     const [notes, setNotes] = useState(' ');
-
+    
+    let _ud : any = localStorage.getItem('user_data');
+    let ud = JSON.parse(_ud);
+    let userId : string = ud.id;
     async function addExpense(event:any) : Promise<void> {
         event.preventDefault;
-
-        const user = localStorage.getItem("user_data");
-        if(user.id == null) {
+        console.log("userId is " + userId);
+        
+        if(ud.id == null) {
             console.log("problem");
         }
-        var obj = {userId : user.id, category: dropDownValue, amount : currencyValue, name: nameValue, notes : notes};
-        var js = JSON.stringify(obj);
-
+        let obj = {userId:userId,category:dropDownValue,amount:currencyValue,name:nameValue,notes:notes};
+        console.log(obj);
+        let js = JSON.stringify(obj);
+        console.log(js);
         try {
             const response = await fetch('https://budgetmanager.xyz/api/addExpense',
             {method: 'POST', body:js, headers: {'Content-type':'application/json'}});
