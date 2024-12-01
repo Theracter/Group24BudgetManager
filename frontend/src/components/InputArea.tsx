@@ -1,5 +1,5 @@
 import Expense from '../components/NewExpense.tsx';
-import Income from '../components/NewIcome.tsx';
+import Income from '../components/NewIncome.tsx';
 import './InputArea.css'
 
 export default function InputArea() {
