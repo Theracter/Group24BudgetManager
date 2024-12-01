@@ -6,10 +6,10 @@ import { useState } from 'react';
 
 export default function NewIncome() {
 
-    const [dropDownValue, setDropDownValue] = useState(' ');
-    const [currencyValue, setCurrencyValue] = useState(' ');
-    const [nameValue, setNameValue] = useState(' ');
-    const [notes, setNotes] = useState(' ');
+    const [dropDownValue, setDropDownValue] = useState('');
+    const [currencyValue, setCurrencyValue] = useState('');
+    const [nameValue, setNameValue] = useState('');
+    const [notes, setNotes] = useState('');
 
 
 const options = [
@@ -53,7 +53,7 @@ const handleSelect = (event: React.ChangeEvent<HTMLSelectElement>) => {
 
 
     async function addIncome(event:any) : Promise<void> {
-        event.preventDefault;
+        event.preventDefault();
 
         const user = localStorage.getItem("user_data");
         if(user.id == null) {
