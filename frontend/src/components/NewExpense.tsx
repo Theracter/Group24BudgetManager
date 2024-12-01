@@ -44,16 +44,16 @@ export default function NewExpense() {
         setNotes(value);
       }
 
-    const [dropDownValue, setDropDownValue] = useState(' ');
-    const [currencyValue, setCurrencyValue] = useState(' ');
-    const [nameValue, setNameValue] = useState(' ');
-    const [notes, setNotes] = useState(' ');
+    const [dropDownValue, setDropDownValue] = useState('');
+    const [currencyValue, setCurrencyValue] = useState('');
+    const [nameValue, setNameValue] = useState('');
+    const [notes, setNotes] = useState('');
     
     let _ud : any = localStorage.getItem('user_data');
     let ud = JSON.parse(_ud);
     let userId : string = ud.id;
     async function addExpense(event:any) : Promise<void> {
-        event.preventDefault;
+        event.preventDefault();
         console.log("userId is " + userId);
         
         if(ud.id == null) {
