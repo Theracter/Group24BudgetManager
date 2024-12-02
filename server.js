@@ -271,18 +271,27 @@ app.delete('/api/deleteIncome/:id', async (req, res) => {
 });
 
 // Delete an expense
+const { ObjectId } = require('mongodb'); // Import ObjectId
+
 app.delete('/api/deleteExpense/:_id', async (req, res) => {
     const expenseId = req.params._id; // Get the expense ID from the URL
     console.log(expenseId);
     const db = client.db('BudgetManager'); // Connect to the database
 
     try {
-        const result = await db.collection('Expenses').deleteOne({ _id: expenseId });
+        // Convert the string ID to an ObjectId
+        const result = await db.collection('Expenses').deleteOne({ _id: new ObjectId(expenseId) });
+
+if (!ObjectId.isValid(expenseId)) {
+    return res.status(400).json({ error: 'Invalid ID format' });
+}
+
         if (result.deletedCount === 0) {
             return res.status(404).json({ error: 'Expense not found' });
         }
         res.status(200).json({ message: 'Expense deleted successfully' });
     } catch (err) {
+        console.error(err); // Log the error for debugging
         res.status(500).json({ error: 'Failed to delete expense' });
     }
 });
