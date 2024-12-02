@@ -252,4 +252,38 @@ app.get('/api/pieChartData', async (req, res, next) => {
 
 });
 
+const { ObjectId } = require('mongodb'); // Import ObjectId for working with MongoDB IDs
+
+// Delete an income
+app.delete('/api/deleteIncome/:id', async (req, res) => {
+    const incomeId = req.params.id; // Get the income ID from the URL
+    const db = client.db('BudgetManager'); // Connect to the database
+
+    try {
+        const result = await db.collection('Income').deleteOne({ _id: new ObjectId(incomeId) });
+        if (result.deletedCount === 0) {
+            return res.status(404).json({ error: 'Income not found' });
+        }
+        res.status(200).json({ message: 'Income deleted successfully' });
+    } catch (err) {
+        res.status(500).json({ error: 'Failed to delete income' });
+    }
+});
+
+// Delete an expense
+app.delete('/api/deleteExpense/:id', async (req, res) => {
+    const expenseId = req.params.id; // Get the expense ID from the URL
+    const db = client.db('BudgetManager'); // Connect to the database
+
+    try {
+        const result = await db.collection('Expenses').deleteOne({ _id: new ObjectId(expenseId) });
+        if (result.deletedCount === 0) {
+            return res.status(404).json({ error: 'Expense not found' });
+        }
+        res.status(200).json({ message: 'Expense deleted successfully' });
+    } catch (err) {
+        res.status(500).json({ error: 'Failed to delete expense' });
+    }
+});
+
 app.listen(5000);
