@@ -59,7 +59,12 @@ export default function NewExpense() {
         if(ud.id == null) {
             console.log("problem");
         }
-        let obj = {userId:userId,category:dropDownValue,amount:currencyValue,name:nameValue,notes:notes};
+        let obj = {userId:userId || '',
+                    category:dropDownValue || '',
+                    amount:currencyValue || '',
+                    name:nameValue || '',
+                    notes:notes || ''
+                };
         console.log(obj);
         let js = JSON.stringify(obj);
         console.log(js);
