@@ -271,12 +271,13 @@ app.delete('/api/deleteIncome/:id', async (req, res) => {
 });
 
 // Delete an expense
-app.delete('/api/deleteExpense/:id', async (req, res) => {
-    const expenseId = req.params.id; // Get the expense ID from the URL
+app.delete('/api/deleteExpense/:_id', async (req, res) => {
+    const expenseId = req.params._id; // Get the expense ID from the URL
+    console.log(expenseId);
     const db = client.db('BudgetManager'); // Connect to the database
 
     try {
-        const result = await db.collection('Expenses').deleteOne({ _id: new ObjectId(expenseId) });
+        const result = await db.collection('Expenses').deleteOne({ _id: expenseId });
         if (result.deletedCount === 0) {
             return res.status(404).json({ error: 'Expense not found' });
         }
