@@ -62,7 +62,7 @@ export default function NewExpense() {
         let obj = {userId:userId || '',
                     category:dropDownValue || '',
                     amount:currencyValue || '',
-                    name:nameValue || '',
+                    name:nameValue.target.value || '',
                     notes:notes || ''
                 };
         console.log(obj);

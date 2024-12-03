@@ -59,7 +59,7 @@ const handleSelect = (event: React.ChangeEvent<HTMLSelectElement>) => {
         if(user.id == null) {
             console.log("incomeProblem");
         }
-        var obj = {userId : user.id, category: dropDownValue, amount : currencyValue, name: nameValue, notes : notes};
+        var obj = {userId : user.id, category: dropDownValue, amount : currencyValue, name: nameValue.target.value, notes : notes};
         var js = JSON.stringify(obj);
 
         try {
