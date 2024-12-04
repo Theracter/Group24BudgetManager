@@ -1,11 +1,11 @@
 import DataTable from "react-data-table-component";
 import './HistoryTable.css'
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 interface Expense {
   category: string;
   type: string;
-  amount: number;
+  amount: float;
   name: string;
   month: string;
   notes: string;
@@ -13,7 +13,7 @@ interface Expense {
 }
 
 function HistoryTable() {
-    const [type, setType] = React.useState('');
+    const [type, setDataType] = React.useState('');
     const [category, setCategory] = React.useState('');
     const [amount, setAmount] = React.useState('');
     const [name, setName] = React.useState('');
@@ -45,7 +45,7 @@ function HistoryTable() {
         setAmount(e.target.value);
     }
     function handleSetType(e: any): void {
-        setType(e.target.value);
+        setDataType(e.target.value);
     }
     function handleSetName(e: any): void {
         setName(e.target.value);
