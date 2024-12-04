@@ -12,7 +12,8 @@ export default function MainMenuPage() {
     <>
       <Sidebar/>
       <Stats/>
-      <Input/> 
+      <Input/>
+      <HistoryTable/>
       <br/>
     </>
   );
