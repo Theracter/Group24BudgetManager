@@ -48,8 +48,11 @@ const handleSelect = (event: React.ChangeEvent<HTMLSelectElement>) => {
   };
 
   const handleValueChange = (value: any) => {
-    const newValue = parseFloat(event.target.value);
-    setCurrencyValue(newValue.target.value);
+    if (value) {
+            setCurrencyValue(parseFloat(value)); // Parse the string value to a float
+        } else {
+            setCurrencyValue(0.0); // Default to 0 if no value is provided
+        }
     // Do something with the value, like storing it in state or sending it to an API
   };
   const handleNotesChange = (value: any) => {
