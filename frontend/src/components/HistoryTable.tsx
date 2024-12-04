@@ -2,15 +2,43 @@ import DataTable from "react-data-table-component";
 import './HistoryTable.css'
 import React from 'react';
 
+interface Expense {
+  category: string;
+  type: string;
+  amount: number;
+  name: string;
+  month: string;
+  notes: string;
+  
+}
+
 function HistoryTable() {
     const [userId, setUserId] = React.useState('');
+    const [type, setType] = React.useState('');
     const [category, setCategory] = React.useState('');
     const [amount, setAmount] = React.useState('');
     const [name, setName] = React.useState('');
     const [month, setMonth] = React.useState('');
     const [notes, setNotes] = React.useState('');
+    const [rows, setRows] = React.useState<Expense[]>([]);
 
+    let _ud: any = localStorage.getItem('user_data');
+    let ud = JSON.parse(_ud);
+    let userId: string = ud.id;
 
+    useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch('https://budgetmanager.xyz/api/displayHistory/' + userId);
+        const data = await response.json();
+        setRows(data);
+      } catch (error: any) {
+        console.error('Error fetching data:', error.toString());
+      }
+    };
+    fetchData();
+  }, []);
+	
     function handleSetUserId(e: any): void {
         setUserId(e.target.value);
     }
@@ -19,6 +47,9 @@ function HistoryTable() {
     }
     function handleSetAmount(e: any): void {
         setAmount(e.target.value);
+    }
+    function handleSetType(e: any): void {
+        setType(e.target.value);
     }
     function handleSetName(e: any): void {
         setName(e.target.value);
@@ -29,15 +60,6 @@ function HistoryTable() {
     function handleSetNotes(e: any): void {
         setNotes(e.target.value);
     }
-
-    interface Expense {
-        personID: string | number;
-        // Add other properties your row might have
-        name: string;
-        type: string;
-        cost: number;
-        // ... etc.
-      }
 
     const columns = [
         {
@@ -55,14 +77,6 @@ function HistoryTable() {
         {
             name: "Cost",
             selector: (row: Expense) => "$" + row.cost,
-        },
-    ];
-    const rows = [
-        {
-           personID: 1,
-           name: "Broccoli",
-           type: "Food" ,
-           cost: 360.65
         },
     ];
 
