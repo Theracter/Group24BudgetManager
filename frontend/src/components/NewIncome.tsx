@@ -7,7 +7,7 @@ import { useState } from 'react';
 export default function NewIncome() {
 
     const [dropDownValue, setDropDownValue] = useState('');
-    const [currencyValue, setCurrencyValue] = useState('');
+    const [currencyValue, setCurrencyValue] = useState(0.0);
     const [nameValue, setNameValue] = useState('');
     const [notes, setNotes] = useState('');
 
@@ -44,7 +44,8 @@ const handleSelect = (event: React.ChangeEvent<HTMLSelectElement>) => {
   };
 
   const handleValueChange = (value: any) => {
-    setCurrencyValue(value); 
+    const newValue = parseFloat(event.target.value);
+    setCurrencyValue(newValue.target.value);
     // Do something with the value, like storing it in state or sending it to an API
   };
   const handleNotesChange = (value: any) => {
@@ -59,9 +60,13 @@ const handleSelect = (event: React.ChangeEvent<HTMLSelectElement>) => {
         if(user.id == null) {
             console.log("incomeProblem");
         }
-        var obj = {userId : user.id, category: dropDownValue, amount : currencyValue, name: nameValue.target.value, notes : notes};
-        var js = JSON.stringify(obj);
-
+        let obj = {userId:userId || '',
+                    category:dropDownValue || '',
+                    amount:currencyValue || 0.0,
+                    name:nameValue || '',
+                    notes:notes || ''
+                };
+        let js = JSON.stringify(obj);
         try {
             const response = await fetch('https://budgetmanager.xyz/api/addIncome',
             {method: 'POST', body:js, headers: {'Content-type':'application/json'}});
