@@ -33,8 +33,8 @@ export default function NewExpense() {
         },
     ];
     
-    const handleNameValue = (value: any) => {
-        setNameValue(value);
+    const handleNameValue = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setNameValue(event.target.value);
     }
     
     const handleSelect = (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -45,8 +45,8 @@ export default function NewExpense() {
         setCurrencyValue(value); 
         // Do something with the value, like storing it in state or sending it to an API
       };
-      const handleNotesChange = (value: any) => {
-        setNotes(value);
+      const handleNotesChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setNotes(event.target.value);
       }
 
     const [dropDownValue, setDropDownValue] = useState('');
@@ -67,7 +67,7 @@ export default function NewExpense() {
         let obj = {userId:userId || '',
                     category:dropDownValue || '',
                     amount:currencyValue || '',
-                    name:nameValue.target.value || '',
+                    name:nameValue || '',
                     notes:notes || ''
                 };
         console.log(obj);
@@ -108,7 +108,7 @@ export default function NewExpense() {
                     ))}
                 </select>
                 <br/>
-                <TextArea onChange={handleNotesChange}></TextArea>
+                <input type="text" id="notes" placeholder="Notes Here" onChange={handleNotesChange} value={notes}/>
                 <button type="button" id="submit" onClick={addExpense}>Submit</button>
             </div>
         </>
