@@ -13,7 +13,6 @@ interface Expense {
 }
 
 function HistoryTable() {
-    const [userId, setUserId] = React.useState('');
     const [type, setType] = React.useState('');
     const [category, setCategory] = React.useState('');
     const [amount, setAmount] = React.useState('');
@@ -39,9 +38,6 @@ function HistoryTable() {
     fetchData();
   }, []);
 	
-    function handleSetUserId(e: any): void {
-        setUserId(e.target.value);
-    }
     function handleSetCategory(e: any): void {
         setUserId(e.target.value);
     }
