@@ -43,7 +43,7 @@ export default function NewExpense() {
     
       const handleValueChange = (e) => {
         const newValue = parseFloat(event.target.value);
-        setCurrencyValue(value); 
+        setCurrencyValue(newValue); 
         // Do something with the value, like storing it in state or sending it to an API
       };
       const handleNotesChange = (event: React.ChangeEvent<HTMLInputElement>) => {
