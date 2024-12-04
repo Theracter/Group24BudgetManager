@@ -11,6 +11,7 @@ export default function MainMenuPage() {
   return (
     <>
       <Stats/>
+      <Sidebar/>
       <Input/> 
       <br/>
     </>
