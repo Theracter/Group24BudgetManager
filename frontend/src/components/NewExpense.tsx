@@ -41,7 +41,8 @@ export default function NewExpense() {
         setDropDownValue(event.target.value); // Update state with the selected value
       };
     
-      const handleValueChange = (value: any) => {
+      const handleValueChange = (e) => {
+        const newValue = parseFloat(event.target.value);
         setCurrencyValue(value); 
         // Do something with the value, like storing it in state or sending it to an API
       };
@@ -50,7 +51,7 @@ export default function NewExpense() {
       }
 
     const [dropDownValue, setDropDownValue] = useState('');
-    const [currencyValue, setCurrencyValue] = useState('');
+    const [currencyValue, setCurrencyValue] = useState(0.0);
     const [nameValue, setNameValue] = useState('');
     const [notes, setNotes] = useState('');
     
@@ -66,7 +67,7 @@ export default function NewExpense() {
         }
         let obj = {userId:userId || '',
                     category:dropDownValue || '',
-                    amount:currencyValue || '',
+                    amount:currencyValue || 0.0,
                     name:nameValue || '',
                     notes:notes || ''
                 };
