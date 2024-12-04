@@ -9,7 +9,7 @@ interface Expense {
   name: string;
   month: string;
   notes: string;
-  
+
 }
 
 function HistoryTable() {
@@ -37,7 +37,7 @@ function HistoryTable() {
     };
     fetchData();
   }, []);
-	
+
     function handleSetCategory(e: any): void {
         setUserId(e.target.value);
     }
@@ -74,40 +74,52 @@ function HistoryTable() {
             name: "Cost",
             selector: (row: Expense) => "$" + row.amount,
         },
+        {
+            cell: () => <button className = "editButton">Edit</button>,
+            ignoreRowClick: true,
+            allowOverflow: true,
+            button: true,
+        },
+        {
+            cell: () => <button className = "deleteButton">Delete</button>,
+            ignoreRowClick: true,
+            allowOverflow: true,
+            button: true,
+        },
     ];
 
     async function doEditIncome(event:any) : Promise<void>
     {
-	event.preventDefault();
+        event.preventDefault();
 
-	var obj = {userId: userId, category: category, amount: amount, name: name, month: month, notes: notes};
-	var js = JSON.stringify(obj);
-	console.log(js);
-	try
-	{
-	const response = await fetch('https://budgetmanager.xyz/api/editExpense',
-	{method:'POST',body:js,headers:{'Content-Type':'application/json'}});
-	console.log(response);
-	var res = JSON.parse(await response.text());
-	console.log(res);
-	if( res.id <= 0 )
-	{
-		setMessage('Information entered was invalid');
-	}
-	else
-	{
-		//var user = {firstName:res.firstName,lastName:res.lastName,id:res.id}
-		//localStorage.setItem('user_data', JSON.stringify(user));
-		
-		window.location.href = '/main-menu';
-	
-	}
+        var obj = {userId: userId, category: category, amount: amount, name: name, month: month, notes: notes};
+        var js = JSON.stringify(obj);
+        console.log(js);
+        try
+        {
+        const response = await fetch('https://budgetmanager.xyz/api/editExpense',
+        {method:'POST',body:js,headers:{'Content-Type':'application/json'}});
+        console.log(response);
+        var res = JSON.parse(await response.text());
+        console.log(res);
+        if( res.id <= 0 )
+        {
+                setMessage('Information entered was invalid');
+        }
+        else
+        {
+                //var user = {firstName:res.firstName,lastName:res.lastName,id:res.id}
+                //localStorage.setItem('user_data', JSON.stringify(user));
+
+                window.location.href = '/main-menu';
+
+        }
 }
-	catch(error:any)
-	{
-	alert(error.toString());
-	return;
-	}
+        catch(error:any)
+        {
+        alert(error.toString());
+        return;
+        }
 };
 
     return (
