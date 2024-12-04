@@ -5,7 +5,7 @@ import React, { useState, useEffect } from 'react';
 interface Expense {
   category: string;
   type: string;
-  amount: float;
+  amount: string;
   name: string;
   month: string;
   notes: string;
@@ -72,7 +72,7 @@ function HistoryTable() {
         },
         {
             name: "Cost",
-            selector: (row: Expense) => "$" + row.cost,
+            selector: (row: Expense) => "$" + row.amount,
         },
     ];
 
