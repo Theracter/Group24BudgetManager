@@ -43,7 +43,7 @@ export default function NewExpense() {
     
       const handleValueChange = (e) => {
         const newValue = parseFloat(event.target.value);
-        setCurrencyValue(newValue); 
+        setCurrencyValue(newValue.target.value); 
         // Do something with the value, like storing it in state or sending it to an API
       };
       const handleNotesChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -67,7 +67,7 @@ export default function NewExpense() {
         }
         let obj = {userId:userId || '',
                     category:dropDownValue || '',
-                    amount:currencyValue || 0.0,
+                    amount:currencyValue || 2.0,
                     name:nameValue || '',
                     notes:notes || ''
                 };
