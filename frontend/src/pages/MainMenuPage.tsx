@@ -10,8 +10,8 @@ import Input from '../components/InputArea.tsx';
 export default function MainMenuPage() {
   return (
     <>
-      <Stats/>
       <Sidebar/>
+      <Stats/>
       <Input/> 
       <br/>
     </>
