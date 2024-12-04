@@ -67,7 +67,7 @@ function SignUp() {
                 onChange={handleSetUsername} /> <br />
             <input type="text" id="signUpPasswlrd" placeholder="Password"
                 onChange={handleSetPassword} /> <br />
-            <button type="button" id="signUpButton">Sign Up</button>
+            <button type="button" id="signUpButton"onClick={doSignUp}>Sign Up</button>
         </div>
     );
 };
