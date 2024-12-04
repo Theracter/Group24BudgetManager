@@ -43,6 +43,7 @@ export default function NewExpense() {
     
     // Fixed handleValueChange function to correctly process the value from CurrencyInput
     const handleValueChange = (value: string | undefined) => {
+        console.log(value);
         if (value) {
             setCurrencyValue(parseFloat(value)); // Parse the string value to a float
         } else {
