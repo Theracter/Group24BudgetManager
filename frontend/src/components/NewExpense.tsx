@@ -7,6 +7,11 @@ export default function NewExpense() {
 
     const options = [
         {
+            label: "",
+            value: "",
+
+        },
+        {
             label: "Food",
             value: "Food",
         },
