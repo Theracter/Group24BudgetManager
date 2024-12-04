@@ -95,7 +95,7 @@ export default function NewIncome() {
     return (
         <>
             <div className='container'>
-                <input type="text" id="incomeName" placeholder="Enter Name" onChange={handleNameValue} />
+                <input type="text" id="expenseName" placeholder="Enter Name" onChange={handleNameValue} />
                 <br />
                 {/* Updated onValueChange to use the corrected handleValueChange */}
                 <CurrencyInput
