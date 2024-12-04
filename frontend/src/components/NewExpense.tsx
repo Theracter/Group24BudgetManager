@@ -40,14 +40,12 @@ export default function NewExpense() {
     const handleSelect = (event: React.ChangeEvent<HTMLSelectElement>) => {
         setDropDownValue(event.target.value); // Update state with the selected value
       };
-
-      const handleValueChange = (value: string | undefined) => {
-        if (value) {
-            setCurrencyValue(parseFloat(value)); // Parse the string value to a float
-        } else {
-            setCurrencyValue(0.0); // Default to 0 if no value is provided
-        }
-    };
+    
+      const handleValueChange = (e) => {
+        const newValue = parseFloat(event.target.value);
+        setCurrencyValue(newValue.target.value); 
+        // Do something with the value, like storing it in state or sending it to an API
+      };
       const handleNotesChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setNotes(event.target.value);
       }
