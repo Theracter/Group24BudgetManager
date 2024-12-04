@@ -43,7 +43,7 @@ export default function NewExpense() {
     
       const handleValueChange = (value: string | undefined) => {
         if (value) {
-            setCurrencyValue(parseFloat(value)); // Parse the string value to a float
+            setCurrencyValue(parseFloat(event.target.value)); // Parse the string value to a float
         } else {
             setCurrencyValue(0.0); // Default to 0 if no value is provided
         }
