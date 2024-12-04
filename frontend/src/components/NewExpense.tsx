@@ -41,7 +41,8 @@ export default function NewExpense() {
         setDropDownValue(event.target.value); // Update state with the selected value
       };
     
-      const handleValueChange = (value: string | undefined) => {
+        // Fixed handleValueChange function to correctly process the value from CurrencyInput
+    const handleValueChange = (value: string | undefined) => {
         if (value) {
             setCurrencyValue(parseFloat(event.target.value)); // Parse the string value to a float
         } else {
