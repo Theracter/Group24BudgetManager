@@ -4,43 +4,6 @@ import './NewExpense.css';
 import React, { useState } from 'react';
 
 export default function NewIncome() {
-
-    const options = [
-        {
-            label: "",
-            value: "",
-
-        },
-        {
-            label: "Food",
-            value: "Food",
-        },
-        {
-            label: "Gas",
-            value: "Gas",
-        },
-        {
-            label: "Grocery",
-            value: "Grocery",
-        },
-        {
-            label: "Personal",
-            value: "Personal",
-        },
-        {
-            label: "Other",
-            value: "Other",
-        },
-    ];
-    
-    const handleNameValue = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setNameValue(event.target.value);
-    }
-    
-    const handleSelect = (event: React.ChangeEvent<HTMLSelectElement>) => {
-        setDropDownValue(event.target.value); // Update state with the selected value
-    };
-    
     // Fixed handleValueChange function to correctly process the value from CurrencyInput
     const handleValueChange = (value: string | undefined) => {
         console.log(value);
@@ -51,14 +14,7 @@ export default function NewIncome() {
         }
     };
 
-    const handleNotesChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setNotes(event.target.value);
-    };
-
-    const [dropDownValue, setDropDownValue] = useState('');
     const [currencyValue, setCurrencyValue] = useState(0.0); // Initial state for currency
-    const [nameValue, setNameValue] = useState('');
-    const [notes, setNotes] = useState('');
     
     let _ud: any = localStorage.getItem('user_data');
     let ud = JSON.parse(_ud);
@@ -73,16 +29,13 @@ export default function NewIncome() {
         }
         let obj = {
             userId: userId || '',
-            category: dropDownValue || '',
             amount: currencyValue || 2.0, // Currency value is now properly handled
-            name: nameValue || '',
-            notes: notes || ''
         };
         console.log(obj);
         let js = JSON.stringify(obj);
         console.log(js);
         try {
-            const response = await fetch('https://budgetmanager.xyz/api/addIncome',
+            const response = await fetch('https://budgetmanager.xyz/api/createBudget',
                 { method: 'POST', body: js, headers: { 'Content-type': 'application/json' } });
             var res = JSON.parse(await response.text());
             window.location.href = '/main-menu';
@@ -95,8 +48,6 @@ export default function NewIncome() {
     return (
         <>
             <div className='container'>
-                <input type="text" id="expenseName" placeholder="Enter Name" onChange={handleNameValue} />
-                <br />
                 {/* Updated onValueChange to use the corrected handleValueChange */}
                 <CurrencyInput
                     id="amount"
@@ -106,16 +57,6 @@ export default function NewIncome() {
                     decimalsLimit={2}
                     onValueChange={handleValueChange} // Corrected function for currency input
                 />
-                <br />
-                <select className='category' onChange={handleSelect}>
-                    {options.map((option) => (
-                        <option key={option.value} value={option.value}>
-                            {option.label}
-                        </option>
-                    ))}
-                </select>
-                <br />
-                <input type="text" id="notes" placeholder="Notes Here" onChange={handleNotesChange} value={notes} />
                 <button type="button" id="submit" onClick={addIncome}>Submit</button>
             </div>
         </>
