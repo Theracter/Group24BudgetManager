@@ -14,6 +14,10 @@ export default function NewIncome() {
 
 const options = [
     {
+        label: "",
+        value: "",
+    },
+    {
         label: "Food",
         value: "Food",
     },
@@ -52,7 +56,10 @@ const handleSelect = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setNotes(value);
   }
 
-
+    let _ud : any = localStorage.getItem('user_data');
+    let ud = JSON.parse(_ud);
+    let userId : string = ud.id;
+    
     async function addIncome(event:any) : Promise<void> {
         event.preventDefault();
 
@@ -61,7 +68,9 @@ const handleSelect = (event: React.ChangeEvent<HTMLSelectElement>) => {
             console.log("incomeProblem");
         }
         let obj = {
+                    category:dropDownValue || '',
                     amount:currencyValue || 0.0,
+                    name:nameValue || '',
                     notes:notes || ''
                 };
         let js = JSON.stringify(obj);
