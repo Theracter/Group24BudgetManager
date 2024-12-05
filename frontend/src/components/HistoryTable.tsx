@@ -77,13 +77,13 @@ function HistoryTable() {
             selector: (row: Expense) => "$" + row.amount,
         },
         {
-            cell: () => <button className = "editButton">Edit</button>,
+            cell: (row: Expense) => <button className = "editButton" onClick={() => doEdit(row)}>Edit</button>,
             ignoreRowClick: true,
             allowOverflow: true,
             button: true,
         },
         {
-            cell: (row: Expense)=> <button className = "deleteButton" onClick={() => deleteExpense(row._id)}>Delete</button>,
+            cell: (row: Expense) => <button className = "deleteButton" onClick={() => deleteExpense(row._id)}>Delete</button>,
             ignoreRowClick: true,
             allowOverflow: true,
             button: true,
@@ -118,6 +118,12 @@ function HistoryTable() {
         return;
         }
 	}
+	
+	function doEdit(row: Expense): void {
+	event.preventDefault();
+    localStorage.setItem('row_data', JSON.stringify(row));
+    window.location.href = '/edit';
+  }
 
     async function doEditIncome(event:any) : Promise<void>
     {
