@@ -1,15 +1,17 @@
+
 import DataTable from "react-data-table-component";
 import './HistoryTable.css'
 import React, { useState, useEffect } from 'react';
 
 interface Expense {
+  _id: string;
   category: string;
   type: string;
   amount: string;
   name: string;
   month: string;
   notes: string;
-
+  
 }
 
 function HistoryTable() {
@@ -37,7 +39,7 @@ function HistoryTable() {
     };
     fetchData();
   }, []);
-
+	
     function handleSetCategory(e: any): void {
         setUserId(e.target.value);
     }
@@ -60,7 +62,7 @@ function HistoryTable() {
     const columns = [
         {
             name: "ID",
-            selector: (row: Expense) => row.personID,
+            selector: (row: Expense) => row._id,
         },
         {
             name: "Name",
@@ -81,16 +83,46 @@ function HistoryTable() {
             button: true,
         },
         {
-            cell: () => <button className = "deleteButton">Delete</button>,
+            cell: (row: Expense)=> <button className = "deleteButton" onClick={() => deleteExpense(row._id)}>Delete</button>,
             ignoreRowClick: true,
             allowOverflow: true,
             button: true,
         },
     ];
+	
+	async function deleteExpense(id: string) : Promise<void>
+	{
+		event.preventDefault();
+		
+		try
+        {
+        const response = await fetch(`https://budgetmanager.xyz/api/deleteExpense/${id}`, 
+		{method:'DELETE'});
+        console.log(response);
+        var res = JSON.parse(await response.text());
+        console.log(res);
+        if( res.error )
+		{
+        alert(res.error);
+		}
+		else
+		{
+        // Update the state by filtering out the deleted row
+        setRows(rows.filter(row => row._id !== id));
+        window.location.href = '/main-menu';
+		}
+}
+        catch(error:any)
+        {
+        alert(error.toString());
+        return;
+        }
+	}
 
     async function doEditIncome(event:any) : Promise<void>
     {
         event.preventDefault();
+		
 
         var obj = {userId: userId, category: category, amount: amount, name: name, month: month, notes: notes};
         var js = JSON.stringify(obj);
