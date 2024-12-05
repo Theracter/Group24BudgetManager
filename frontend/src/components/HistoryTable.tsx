@@ -61,16 +61,16 @@ function HistoryTable() {
 
     const columns = [
         {
-            name: "ID",
-            selector: (row: Expense) => row._id,
-        },
-        {
             name: "Name",
             selector: (row: Expense) => row.name,
         },
         {
             name: "Type",
             selector: (row: Expense) => row.type,
+        },
+		{
+            name: "Category",
+            selector: (row: Expense) => row.category,
         },
         {
             name: "Cost",
