@@ -1,4 +1,4 @@
-import Edit from './NewExpense';
+import Edit from './NewEdit';
 
 export default function edit() {
     return (
