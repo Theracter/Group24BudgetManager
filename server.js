@@ -187,7 +187,7 @@ app.patch('/editIncome', async (req, res, next) => {
 
 });
 
-app.patch('/editExpense', async (req, res, next) => {
+app.patch('/api/editExpense', async (req, res, next) => {
     //incoming: userId, Category, Amount, Name, Month, Notes
     //outgoing: error
     const { userId, category, amount, name, month, notes } = req.body;
